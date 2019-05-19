@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Classes.Appointment;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -18,55 +19,51 @@ import javax.swing.*;
 public class AddAppointment extends JFrame implements ActionListener{
      
     JLabel lblHeading = new JLabel("Add Appointment");
-    JTextField txfID = new JTextField(10);
-    JTextField txfFirst = new JTextField(10);
-    JTextField txfLast = new JTextField(10);
+    JTextField dayTextField = new JTextField(10);
+    JTextField hourTextField = new JTextField(10);
+    JTextField nameTextField = new JTextField(10);
     Font myFont = new Font("Arial", Font.BOLD, 16);
-    JButton btnRegister = new JButton("Add"); 
+    JButton addButton = new JButton("Add"); 
      
-    public addAppointment() {
+    public void addAppointment() {
         this.setTitle("Human Resource");
-        this.setSize(230, 300);
+        this.setSize(180, 180);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
         this.setLocationRelativeTo(null);
         this.setLayout(new FlowLayout());
         
         this.add(lblHeading);
-        this.add(new JLabel("Employee ID"));
-        this.add(txfID);
-        this.add(new JLabel("First Name"));
-        this.add(txfFirst);
-        this.add(new JLabel("Last Name"));
-        this.add(txfLast);
-        this.add(btnRegister);
+        this.add(new JLabel("Name"));
+        this.add(nameTextField);
+        this.add(new JLabel("Day"));
+        this.add(dayTextField);
+        this.add(new JLabel("Hour"));
+        this.add(hourTextField);
+        this.add(addButton);
         
         lblHeading.setFont(myFont);
         
         //register objects to actively listen for events
-        btnRegister.addActionListener(this);
+        addButton.addActionListener(this);
         
     }
 
     @Override
     public void actionPerformed(ActionEvent ev) {
-        if(ev.getSource() == btnRegister) {
-            String first, last;
-            int id;
+        if(ev.getSource() == addButton) {
+            int day, hour;
+            String name;
 
-            id = Integer.parseInt(txfID.getText());
-            first = txfFirst.getText();
-            last = txfLast.getText();
+            day = Integer.parseInt(dayTextField.getText());
+            hour = Integer.parseInt(hourTextField.getText());
+            name = nameTextField.getText();
 
-            Appointment appo = new Appointment
+            Appointment appo = new Appointment(day, hour, name);
 
-            JOptionPane.showMessageDialog(null, emp);
+            JOptionPane.showMessageDialog(null, appo);
         }
-        if(ev.getSource() == btnClear){
-            txfID.setText("");
-            txfFirst.setText("");
-            txfLast.setText("");
-        }
+        
     }
     
 }
