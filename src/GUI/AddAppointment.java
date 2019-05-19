@@ -60,6 +60,9 @@ public class AddAppointment extends JFrame implements ActionListener{
             name = nameTextField.getText();
 
             Appointment appo = new Appointment(day, hour, name);
+            FrontEnd fe = new FrontEnd();
+            fe.appos.add(appo);
+            fe.saveData(fe.appos);
 
             JOptionPane.showMessageDialog(null, appo);
         }

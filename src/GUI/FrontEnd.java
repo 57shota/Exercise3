@@ -9,16 +9,20 @@ import Classes.Appointment;
 import Utilities.InputOutput;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.NotSerializableException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -81,16 +85,37 @@ public class FrontEnd extends JFrame implements ActionListener{
             JOptionPane.showMessageDialog(null, text);
             
         }else if(ev.getSource() == searchButton) {
-            //             int day, hour;
-//            String name;
-//
-//            day = Integer.parseInt(dayTextField.getText());
-//            hour = Integer.parseInt(hourTextField.getText());
-//            name = nameTextField.getText();
-//
-//            Appointment appo = new Appointment(day, hour, name);
-//
-//            JOptionPane.showMessageDialog(null, appo);
+            
+            String header = "MONTHLY APPOINTMENTS";
+            JLabel headerLabel = new JLabel(header);
+            String[] index = {"Client","Day", "Hour"};
+            int apposCount = appos.size() + 1;
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridLayout(3, apposCount));
+            
+            Collections.sort(appos, new Comparator<Appointment>() {
+                @Override
+                public int compare(Appointment a1, Appointment a2) {
+                    return a1.getDay() - a2.getDay();
+                }
+            });
+            
+            for (String i: index) {
+                JLabel label = new JLabel(i);
+                panel.add(label);
+            }
+            appos.forEach((appo) -> {
+                JLabel nameLabel = new JLabel(appo.getName());
+                JLabel dayLabel = new JLabel(String.valueOf(appo.getDay()));
+                JLabel hourLabel = new JLabel(String.valueOf(appo.getHour()));
+                panel.add(nameLabel);
+                panel.add(dayLabel);
+                panel.add(hourLabel);
+            }); 
+            
+            getContentPane().add(headerLabel);
+            getContentPane().add(panel);
+
         }
     }
     

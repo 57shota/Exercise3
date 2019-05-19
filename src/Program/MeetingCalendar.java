@@ -1,5 +1,7 @@
 package Program;
 
+import GUI.FrontEnd;
+
 /**
  *
  * @author sho
@@ -7,7 +9,7 @@ package Program;
 public class MeetingCalendar {
     
     public static void main(String[] args) {
-        
+        FrontEnd fe = new FrontEnd();
     }
     
 }
