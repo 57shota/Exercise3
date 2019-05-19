@@ -6,10 +6,15 @@
 package GUI;
 
 import Classes.Appointment;
+import Utilities.InputOutput;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +33,9 @@ public class FrontEnd extends JFrame implements ActionListener{
     JButton helpButton = new JButton("Help"); 
     JButton addButton = new JButton("Add Appointment"); 
     JButton searchButton = new JButton("Search Appointment"); 
+    
+    final static String fileName = "Appointment.bin";
+    static ArrayList<Appointment> appos;
     
      
     public void addAppointment() {
@@ -65,7 +73,15 @@ public class FrontEnd extends JFrame implements ActionListener{
             JOptionPane.showMessageDialog(null, text);
             
         }else if(ev.getSource() == addButton) {
-//             int day, hour;
+            
+            appos = new ArrayList<>();
+            appos = readData();
+            AddAppointment addAppo = new AddAppointment();
+            String text = "Appointment entered.";
+            JOptionPane.showMessageDialog(null, text);
+            
+        }else if(ev.getSource() == searchButton) {
+            //             int day, hour;
 //            String name;
 //
 //            day = Integer.parseInt(dayTextField.getText());
@@ -75,11 +91,41 @@ public class FrontEnd extends JFrame implements ActionListener{
 //            Appointment appo = new Appointment(day, hour, name);
 //
 //            JOptionPane.showMessageDialog(null, appo);
-        }else if(ev.getSource() == searchButton) {
-            
         }
-        
-        
+    }
+    
+    public static ArrayList<Appointment> readData(){
+        ArrayList<Appointment> appos = new ArrayList<>();
+        try{
+           appos = InputOutput.readAppointmentData(fileName);
+        }
+        catch(FileNotFoundException fnfEx){
+            System.err.println("Problem with the patients.bin file");
+            JOptionPane.showMessageDialog(null, "File \"Appointment.bin\" will be created");
+        }
+        catch(NotSerializableException nsEx){
+            System.err.println("A class has not been serialised");
+        }
+        catch(IOException ioEx){
+            System.err.println("Problem with reading data from file");
+        }
+   
+        return appos;
+    }
+    
+    public static void saveData(ArrayList<Appointment> appos){
+        try{
+            InputOutput.saveAppointmentData(fileName, appos);
+        }
+        catch(FileNotFoundException fnfEx){
+            System.err.println("Problem with the binary file");
+        }
+        catch(NotSerializableException nsEx){
+            System.err.println("A class has not been serialised");
+        }
+        catch (IOException ioEx){
+            System.err.println("Issue(s) with saving data to file");
+        }
         
     }
 }

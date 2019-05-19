@@ -30,7 +30,7 @@ public class InputOutput {
 
     public static void saveAppointmentData(String file, ArrayList<Appointment> list) throws FileNotFoundException, IOException{
         
-        FileOutputStream fos = new FileOutputStream(file);
+        FileOutputStream fos = new FileOutputStream(file, true);
         DataOutputStream dos = new DataOutputStream(fos);
         
         for(Appointment appo: list){
