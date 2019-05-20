@@ -9,8 +9,7 @@ import Classes.Appointment;
 import static GUI.FrontEnd.readData;
 import static GUI.FrontEnd.appos;
 import static GUI.FrontEnd.saveData;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class AddAppointment extends JFrame implements ActionListener{
         this.setTitle("Human Resource");
         this.setSize(180, 180);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
         this.setLocationRelativeTo(null);
         this.setLayout(new FlowLayout());
         
@@ -73,6 +72,10 @@ public class AddAppointment extends JFrame implements ActionListener{
             System.out.println(readData());
             String text = "Appointment entered.";
             JOptionPane.showMessageDialog(null, text);
+            
+            Component c = (Component)ev.getSource();
+            Window w = SwingUtilities.getWindowAncestor(c);
+            w.dispose();
         }
         
     }

@@ -23,6 +23,7 @@ public class FrontEnd extends JFrame implements ActionListener{
     JButton helpButton = new JButton("Help"); 
     JButton addButton = new JButton("Add Appointment"); 
     JButton searchButton = new JButton("Search Appointment"); 
+    JButton okButton = new JButton("OK");
     
     final static String fileName = "Appointment.bin";
     static ArrayList<Appointment> appos = new ArrayList<>();
@@ -58,6 +59,8 @@ public class FrontEnd extends JFrame implements ActionListener{
                 JPanel panel = new JPanel();
                 JPanel outerPanel = new JPanel(new BorderLayout());
                 String[] index = {"Client","Day", "Hour"};
+                
+                
                 appos = readData();
 
                 int apposCount = appos.size() + 1;
@@ -85,8 +88,11 @@ public class FrontEnd extends JFrame implements ActionListener{
                     panel.add(hourLabel);
                 }); 
 
+                okButton.addActionListener(this);
                 outerPanel.add(headerLabel, BorderLayout.NORTH);
                 outerPanel.add(panel, BorderLayout.CENTER);
+                outerPanel.add(okButton, BorderLayout.SOUTH);
+//                outerPanel.setLayout(new FlowLayout());
                 getContentPane().add(outerPanel);
                 break;
         }
@@ -108,16 +114,23 @@ public class FrontEnd extends JFrame implements ActionListener{
             AddAppointment addAppo = new AddAppointment();
             
             
+            
         }else if(ev.getSource() == searchButton) {
             
             appos = readData();
-            int height = appos.size() * 90;
+            int height = appos.size() * 50;
             FrontEnd searchDisplay = new FrontEnd("search");
-            searchDisplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
+            searchDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             searchDisplay.setTitle("Search Display");
             searchDisplay.setSize(200, height);
             searchDisplay.setVisible(true);
 
+        }else if(ev.getSource() == okButton) {
+            
+            Component c = (Component)ev.getSource();
+            Window w = SwingUtilities.getWindowAncestor(c);
+            w.dispose();
+            
         }
     }
     
