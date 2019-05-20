@@ -6,10 +6,14 @@
 package GUI;
 
 import Classes.Appointment;
+import static GUI.FrontEnd.readData;
+import static GUI.FrontEnd.appos;
+import static GUI.FrontEnd.saveData;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -25,7 +29,7 @@ public class AddAppointment extends JFrame implements ActionListener{
     Font myFont = new Font("Arial", Font.BOLD, 16);
     JButton addButton = new JButton("Add"); 
      
-    public void addAppointment() {
+    public AddAppointment() {
         this.setTitle("Human Resource");
         this.setSize(180, 180);
         this.setVisible(true);
@@ -60,11 +64,15 @@ public class AddAppointment extends JFrame implements ActionListener{
             name = nameTextField.getText();
 
             Appointment appo = new Appointment(day, hour, name);
-            FrontEnd fe = new FrontEnd();
-            fe.appos.add(appo);
-            fe.saveData(fe.appos);
 
-            JOptionPane.showMessageDialog(null, appo);
+            System.out.println(appos);
+            appos = new ArrayList<>();
+            appos.add(appo);
+            System.out.println(appos);
+            saveData(appos);
+            System.out.println(readData());
+            String text = "Appointment entered.";
+            JOptionPane.showMessageDialog(null, text);
         }
         
     }

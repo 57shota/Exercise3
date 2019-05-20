@@ -9,7 +9,7 @@ import GUI.FrontEnd;
 public class MeetingCalendar {
     
     public static void main(String[] args) {
-        FrontEnd fe = new FrontEnd();
+        FrontEnd fe = new FrontEnd("main");
     }
     
 }
